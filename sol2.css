@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(3, 7, 25, 0.76), rgba(2, 16, 42, 0.42)),
+    url("images/pexels-free-nature-stock-7480.jpg") center / cover fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: sans-serif;
+  color: white;
+}
+
+.scene {
+  position: relative;
+  width: min(100%, 1000px);
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  overflow: hidden;
+  perspective: 2000px;
+}
+
+#solar-system {
+  position: relative;
+  width: min(68vmin, 850px);
+  height: min(68vmin, 850px);
+  flex: 0 0 auto;
+  transform-style: preserve-3d;
+  animation: tilt 50s linear infinite;
+  transform-origin: center center;
+}
+
+.sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(130px, 24vmin, 260px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  filter: drop-shadow(0 0 24px #ff9d21);
+}
+
+.sun img,
+.planet img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sun img {
+  animation: sun-pulse 3s ease-in-out infinite;
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--orbit-size);
+  height: var(--orbit-size);
+  border: 1px dashed rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotate var(--orbit-speed) linear infinite;
+}
+
+.planet {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--planet-size);
+  height: var(--planet-size);
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4));
+}
+
+.label {
+  position: absolute;
+  top: calc(100% + 0.1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.58rem, 1.4vmin, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.mercury { --orbit-size: 36%; --planet-size: 7%; --orbit-speed: 6s; }
+.venus { --orbit-size: 44%; --planet-size: 9%; --orbit-speed: 9s; }
+.earth { --orbit-size: 52%; --planet-size: 11%; --orbit-speed: 14s; }
+.mars { --orbit-size: 60%; --planet-size: 10%; --orbit-speed: 20s; }
+.jupiter { --orbit-size: 68%; --planet-size: 18%; --orbit-speed: 26s; }
+.saturn { --orbit-size: 76%; --planet-size: 20%; --orbit-speed: 34s; }
+.uranus { --orbit-size: 84%; --planet-size: 16%; --orbit-speed: 42s; }
+.neptune { --orbit-size: 92%; --planet-size: 15%; --orbit-speed: 50s; }
+
+.moon-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 190%;
+  height: 190%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotate-moon 2s linear infinite;
+}
+
+.moon-orbit--phobos { width: 185%; height: 185%; }
+.moon-orbit--deimos { width: 300%; height: 300%; animation-duration: 3.2s; }
+
+.moon {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: #d5d9df;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.photos { width: 5px; height: 5px; background: #999; }
+.deimos { width: 5px; height: 5px; background: #bbb; }
+
+@keyframes sun-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes rotate-moon {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes tilt {
+  0% { transform: rotateX(10deg) rotateZ(0deg); }
+  50% { transform: rotateX(10deg) rotateZ(180deg); }
+  100% { transform: rotateX(10deg) rotateZ(360deg); }
+}
+
+@media (max-width: 600px) {
+  #solar-system {
+    width: 68vmin;
+    height: 68vmin;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #solar-system,
+  .orbit,
+  .moon-orbit,
+  .sun img {
+    animation-play-state: paused;
+  }
+}
