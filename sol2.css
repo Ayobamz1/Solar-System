@@ -130,12 +130,12 @@ body {
   transform: translateX(-50%);
 }
 
-.photos { width: 5px; height: 5px; background: #999; }
+.phobos { width: 5px; height: 5px; background: #999; }
 .deimos { width: 5px; height: 5px; background: #bbb; }
 
 @keyframes sun-pulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.04); }
+  50% { transform: scale(1.05); }
 }
 
 @keyframes rotate {
@@ -152,20 +152,4 @@ body {
   0% { transform: rotateX(10deg) rotateZ(0deg); }
   50% { transform: rotateX(10deg) rotateZ(180deg); }
   100% { transform: rotateX(10deg) rotateZ(360deg); }
-}
-
-@media (max-width: 600px) {
-  #solar-system {
-    width: 68vmin;
-    height: 68vmin;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #solar-system,
-  .orbit,
-  .moon-orbit,
-  .sun img {
-    animation-play-state: paused;
-  }
 }
